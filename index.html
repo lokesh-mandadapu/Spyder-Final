@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPYDER - Pause and Rest to Feel Your Best</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Canvas Animation Background -->
+    <canvas id="animationCanvas"></canvas>
+    
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="title-section">
+                    <h1 class="main-title" id="mainTitle">SPYDER</h1>
+                    <p class="subtitle" id="subtitle">Pause and Rest to Feel Your Best</p>
+                    <div class="daily-quote" id="dailyQuote">
+                        <p class="quote-text"></p>
+                    </div>
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Main Features Section -->
+        <section class="main-features" id="mainFeatures">
+            <div class="container">
+                <h2 class="section-title">Choose Your Path</h2>
+                <div class="features-grid">
+                    <div class="feature-card" id="curatedCard">
+                        <div class="card-image">
+                            <div class="card-icon">📚</div>
+                        </div>
+                        <h3>Curated Resources</h3>
+                        <p>Discover personalized wellness resources and tools</p>
+                    </div>
+                    <div class="feature-card" id="chatbotCard">
+                        <div class="card-image">
+                            <div class="card-icon">🤖</div>
+                        </div>
+                        <h3>AI Chatbot</h3>
+                        <p>Chat with an empathetic AI companion who understands your emotions</p>
+                    </div>
+                    <div class="feature-card" id="communityCard">
+                        <div class="card-image">
+                            <div class="card-icon">👥</div>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Connect with others on their wellness journey</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curated Features Section -->
+        <section class="curated-features" id="curatedFeatures" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">Wellness Tools</h2>
+                <div class="curated-grid">
+                    <!-- Stress Prediction Card -->
+                    <div class="curated-card">
+                        <div class="card-header">
+                            <h3>🧠 Stress Prediction</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label>How would you rate your current stress level?</label>
+                                <select id="stressLevel">
+                                    <option value="">Select...</option>
+                                    <option value="1">Very Low (1)</option>
+                                    <option value="2">Low (2)</option>
+                                    <option value="3">Moderate (3)</option>
+                                    <option value="4">High (4)</option>
+                                    <option value="5">Very High (5)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>How many hours of sleep did you get last night?</label>
+                                <select id="sleepHours">
+                                    <option value="">Select...</option>
+                                    <option value="1">Less than 4 hours</option>
+                                    <option value="2">4-6 hours</option>
+                                    <option value="3">6-8 hours</option>
+                                    <option value="4">8+ hours</option>
+                                </select>
+                            </div>
+                            <button class="calculate-btn" id="calculateStress">Calculate Stress Score</button>
+                            <div class="result" id="stressResult"></div>
+                        </div>
+                    </div>
+
+                    <!-- Critical Stress Mode Card -->
+                    <div class="curated-card">
+                        <div class="card-header">
+                            <h3>🚨 Critical Stress Mode</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>If you're experiencing overwhelming stress, use these emergency resources:</p>
+                            <div class="emergency-options">
+                                <button class="emergency-btn" id="breathingBtn">Breathing Exercise</button>
+                                <button class="emergency-btn" id="helplineBtn">Crisis Helpline</button>
+                                <button class="emergency-btn" id="notifyBtn">Notify Friend</button>
+                            </div>
+                            <div class="emergency-content" id="emergencyContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mental Wellness Streaks Card -->
+                    <div class="curated-card">
+                        <div class="card-header">
+                            <h3>🔥 Wellness Streaks</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="streak-display">
+                                <div class="streak-number" id="streakNumber">0</div>
+                                <div class="streak-label">Days</div>
+                            </div>
+                            <button class="streak-btn" id="incrementStreak">Add Day</button>
+                            <p class="streak-message" id="streakMessage"></p>
+                        </div>
+                    </div>
+
+                    <!-- Fun Games Card -->
+                    <div class="curated-card">
+                        <div class="card-header">
+                            <h3>🎮 Fun Games</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Take a break with these relaxing games:</p>
+                            <div class="game-buttons">
+                                <button class="game-btn" id="popGameBtn">Pop Game</button>
+                                <button class="game-btn" id="memoryGameBtn">Memory Game</button>
+                                <button class="game-btn" id="puzzleSliderGameBtn">Puzzle Slider</button>
+                                <button class="game-btn" id="zenGardenGameBtn">Zen Garden</button>
+                                <button class="game-btn" id="bubbleWrapGameBtn">Bubble Wrap</button>
+                                <button class="game-btn" id="sandDrawingGameBtn">Sand Drawing</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gratitude Wall Card -->
+                    <div class="curated-card">
+                        <div class="card-header">
+                            <h3>🙏 Gratitude Wall</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="gratitude-input">
+                                <textarea id="gratitudeInput" placeholder="What are you grateful for today?"></textarea>
+                                <button class="gratitude-btn" id="addGratitude">Add to Wall</button>
+                            </div>
+                            <div class="gratitude-wall" id="gratitudeWall">
+                                <h4>Gratitude Entries:</h4>
+                                <div class="gratitude-entries" id="gratitudeEntries"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daily Reflection Card -->
+                    <div class="curated-card">
+                        <div class="card-header">
+                            <h3>📝 Daily Reflection</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="reflection-form">
+                                <div class="form-group">
+                                    <label>How are you feeling today?</label>
+                                    <select id="moodSelect">
+                                        <option value="">Select mood...</option>
+                                        <option value="😊">Happy</option>
+                                        <option value="😌">Calm</option>
+                                        <option value="😔">Sad</option>
+                                        <option value="😰">Anxious</option>
+                                        <option value="😴">Tired</option>
+                                        <option value="😤">Frustrated</option>
+                                        <option value="😍">Excited</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>What's one thing you want to focus on today?</label>
+                                    <input type="text" id="focusInput" placeholder="Enter your focus...">
+                                </div>
+                                <button class="reflection-btn" id="saveReflection">Save Reflection</button>
+                            </div>
+                            <div class="reflection-display" id="reflectionDisplay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chatbot Section -->
+        <section class="chatbot-section" id="chatbotSection" style="display: none;">
+            <div class="container">
+                <div class="chatbot-header">
+                    <h2>AI Wellness Companion</h2>
+                    <p>Your empathetic AI friend who understands emotions and provides personalized support</p>
+                </div>
+                
+                <div class="chatbot-container">
+                    <div class="chatbot-messages" id="chatbotMessages">
+                        <div class="chatbot-message bot-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p>Hey there! 👋 I'm your AI wellness companion, and I'm genuinely excited to chat with you! Whether you want to talk about your day, get advice, or just have a friendly conversation, I'm all ears. What's on your mind?</p>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chatbot-input-container">
+                        <div class="chatbot-input">
+                            <input type="text" id="chatbotInput" placeholder="Share what's on your mind...">
+                            <button class="chatbot-send-btn" id="chatbotSendBtn">
+                                <span>Send</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="chatbot-suggestions" id="chatbotSuggestions">
+                            <button class="suggestion-btn" data-suggestion="I'm feeling stressed">I'm feeling stressed</button>
+                            <button class="suggestion-btn" data-suggestion="I need motivation">I need motivation</button>
+                            <button class="suggestion-btn" data-suggestion="Tell me about mindfulness">Tell me about mindfulness</button>
+                            <button class="suggestion-btn" data-suggestion="I want to talk about my day">I want to talk about my day</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chatbot-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">💭</div>
+                        <h4>Emotional Intelligence</h4>
+                        <p>Understands your feelings and responds with empathy</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🧠</div>
+                        <h4>Context Awareness</h4>
+                        <p>Remembers your conversations and personalizes responses</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎭</div>
+                        <h4>Adaptive Personality</h4>
+                        <p>Adjusts tone and style to match your needs</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🤗</div>
+                        <h4>24/7 Support</h4>
+                        <p>Always available when you need someone to talk to</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section class="community-section" id="communitySection" style="display: none;">
+            <div class="container">
+                <div class="community-form" id="communityForm">
+                    <h2>Join the Community</h2>
+                    <div class="form-group">
+                        <label>How are you feeling today?</label>
+                        <div class="mood-options">
+                            <label><input type="radio" name="mood" value="happy"> 😊 Happy</label>
+                            <label><input type="radio" name="mood" value="calm"> 😌 Calm</label>
+                            <label><input type="radio" name="mood" value="anxious"> 😰 Anxious</label>
+                            <label><input type="radio" name="mood" value="motivated"> 💪 Motivated</label>
+                            <label><input type="radio" name="mood" value="tired"> 😴 Tired</label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label>What interests you most?</label>
+                            <select id="interestSelect">
+                                <option value="">Select interest...</option>
+                                <option value="meditation">Meditation & Mindfulness</option>
+                                <option value="exercise">Exercise & Fitness</option>
+                                <option value="nutrition">Nutrition & Health</option>
+                                <option value="creativity">Creativity & Arts</option>
+                                <option value="learning">Learning & Growth</option>
+                                <option value="relationships">Relationships</option>
+                                <option value="casual-talk">Casual Talk & Chat</option>
+                                <option value="movies">Movies & Entertainment</option>
+                                <option value="cricket">Cricket & Sports</option>
+                                <option value="music">Music & Audio</option>
+                                <option value="gaming">Gaming & Technology</option>
+                                <option value="travel">Travel & Adventure</option>
+                                <option value="books">Books & Literature</option>
+                                <option value="cooking">Cooking & Food</option>
+                            </select>
+                        </div>
+                    <button class="join-chat-btn" id="joinChatBtn">Join Chat</button>
+                </div>
+
+                <div class="chat-container" id="chatContainer" style="display: none;">
+                    <div class="chat-header">
+                        <div class="chat-title-section">
+                            <h3>Community Chat</h3>
+                            <div class="online-users">
+                                <span class="online-indicator">🟢</span>
+                                <span class="online-count">4 people online</span>
+                            </div>
+                        </div>
+                        <button class="leave-chat-btn" id="leaveChatBtn">Leave Chat</button>
+                    </div>
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="Type your message...">
+                        <button class="send-btn" id="sendBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Login to SPYDER</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="userName">Name</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userPhone">Phone Number</label>
+                        <input type="tel" id="userPhone" required>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel-btn" id="cancelLogin">Cancel</button>
+                        <button type="submit" class="login-submit-btn">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breathing Exercise Modal -->
+    <div class="modal-overlay" id="breathingModal">
+        <div class="modal breathing-modal">
+            <div class="modal-header">
+                <h3>Breathing Exercise</h3>
+                <button class="close-btn" id="closeBreathingModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="breathing-exercise">
+                    <div class="breathing-circle" id="breathingCircle"></div>
+                    <p class="breathing-instruction" id="breathingInstruction">Click Start to begin</p>
+                    <button class="breathing-btn" id="startBreathing">Start</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop Game Modal -->
+    <div class="modal-overlay" id="popGameModal">
+        <div class="modal pop-game-modal">
+            <div class="modal-header">
+                <h3>🎈 Pop Game</h3>
+                <button class="close-btn" id="closePopGameModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="pop-game-container">
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Score:</span>
+                            <span class="stat-value" id="popScore">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span class="stat-value" id="popTime">60</span>
+                        </div>
+                    </div>
+                    <div class="game-area" id="popGameArea">
+                        <p class="game-instruction">Click the bubbles to pop them!</p>
+                    </div>
+                    <div class="game-controls">
+                        <button class="game-control-btn" id="startPopGame">Start Game</button>
+                        <button class="game-control-btn" id="pausePopGame" style="display: none;">Pause</button>
+                        <button class="game-control-btn" id="resetPopGame">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Game Modal -->
+    <div class="modal-overlay" id="memoryGameModal">
+        <div class="modal memory-game-modal">
+            <div class="modal-header">
+                <h3>🧠 Memory Game</h3>
+                <button class="close-btn" id="closeMemoryGameModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="memory-game-container">
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Moves:</span>
+                            <span class="stat-value" id="memoryMoves">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Pairs:</span>
+                            <span class="stat-value" id="memoryPairs">0/8</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span class="stat-value" id="memoryTime">0</span>
+                        </div>
+                    </div>
+                    <div class="memory-grid" id="memoryGrid">
+                        <!-- Memory cards will be generated here -->
+                    </div>
+                    <div class="game-controls">
+                        <button class="game-control-btn" id="startMemoryGame">Start Game</button>
+                        <button class="game-control-btn" id="resetMemoryGame">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Puzzle Slider Game Modal -->
+    <div class="modal-overlay" id="puzzleSliderGameModal">
+        <div class="modal puzzle-slider-game-modal">
+            <div class="modal-header">
+                <h3>🧩 Puzzle Slider</h3>
+                <button class="close-btn" id="closePuzzleSliderGameModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="puzzle-slider-game-container">
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Moves:</span>
+                            <span class="stat-value" id="puzzleSliderMoves">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span class="stat-value" id="puzzleSliderTime">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Size:</span>
+                            <span class="stat-value" id="puzzleSliderSize">3x3</span>
+                        </div>
+                    </div>
+                    <div class="puzzle-slider-area" id="puzzleSliderArea">
+                        <p class="game-instruction">Slide the tiles to solve the puzzle!</p>
+                    </div>
+                    <div class="puzzle-controls">
+                        <div class="size-selector">
+                            <label>Puzzle Size:</label>
+                            <select id="puzzleSizeSelect">
+                                <option value="3">3x3 (Easy)</option>
+                                <option value="4">4x4 (Medium)</option>
+                                <option value="5">5x5 (Hard)</option>
+                            </select>
+                        </div>
+                        <div class="game-controls">
+                            <button class="game-control-btn" id="startPuzzleSliderGame">Start Game</button>
+                            <button class="game-control-btn" id="shufflePuzzleSliderGame">Shuffle</button>
+                            <button class="game-control-btn" id="resetPuzzleSliderGame">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zen Garden Game Modal -->
+    <div class="modal-overlay" id="zenGardenGameModal">
+        <div class="modal zen-garden-game-modal">
+            <div class="modal-header">
+                <h3>🏯 Zen Garden</h3>
+                <button class="close-btn" id="closeZenGardenGameModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="zen-garden-game-container">
+                    <div class="zen-tools">
+                        <div class="tool-section">
+                            <h4>Tools</h4>
+                            <div class="tool-buttons">
+                                <button class="tool-btn active" data-tool="rake">🌊 Rake</button>
+                                <button class="tool-btn" data-tool="stone">🪨 Stone</button>
+                                <button class="tool-btn" data-tool="flower">🌸 Flower</button>
+                            </div>
+                        </div>
+                        <div class="tool-section">
+                            <h4>Patterns</h4>
+                            <div class="pattern-buttons">
+                                <button class="pattern-btn" data-pattern="waves">Waves</button>
+                                <button class="pattern-btn" data-pattern="circles">Circles</button>
+                                <button class="pattern-btn" data-pattern="spiral">Spiral</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="zen-garden-area" id="zenGardenArea">
+                        <canvas id="zenCanvas" width="500" height="400"></canvas>
+                    </div>
+                    <div class="zen-controls">
+                        <button class="zen-control-btn" id="clearZenGarden">Clear Garden</button>
+                        <button class="zen-control-btn" id="saveZenGarden">Save Pattern</button>
+                        <button class="zen-control-btn" id="meditationMode">Meditation Mode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bubble Wrap Game Modal -->
+    <div class="modal-overlay" id="bubbleWrapGameModal">
+        <div class="modal bubble-wrap-game-modal">
+            <div class="modal-header">
+                <h3>🫧 Bubble Wrap</h3>
+                <button class="close-btn" id="closeBubbleWrapGameModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="bubble-wrap-game-container">
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Popped:</span>
+                            <span class="stat-value" id="bubbleWrapPopped">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span class="stat-value" id="bubbleWrapTime">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Streak:</span>
+                            <span class="stat-value" id="bubbleWrapStreak">0</span>
+                        </div>
+                    </div>
+                    <div class="bubble-wrap-area" id="bubbleWrapArea">
+                        <p class="game-instruction">Click the bubbles to pop them! Feel the satisfaction!</p>
+                    </div>
+                    <div class="bubble-wrap-controls">
+                        <div class="bubble-settings">
+                            <label>Bubble Size:</label>
+                            <select id="bubbleSizeSelect">
+                                <option value="small">Small</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="large">Large</option>
+                            </select>
+                            <label>Bubble Color:</label>
+                            <select id="bubbleColorSelect">
+                                <option value="clear" selected>Clear</option>
+                                <option value="blue">Blue</option>
+                                <option value="pink">Pink</option>
+                                <option value="rainbow">Rainbow</option>
+                            </select>
+                        </div>
+                        <div class="game-controls">
+                            <button class="game-control-btn" id="startBubbleWrapGame">Start Popping</button>
+                            <button class="game-control-btn" id="generateNewBubbles">New Sheet</button>
+                            <button class="game-control-btn" id="resetBubbleWrapGame">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sand Drawing Game Modal -->
+    <div class="modal-overlay" id="sandDrawingGameModal">
+        <div class="modal sand-drawing-game-modal">
+            <div class="modal-header">
+                <h3>🏖️ Sand Drawing</h3>
+                <button class="close-btn" id="closeSandDrawingGameModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="sand-drawing-game-container">
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span class="stat-value" id="sandDrawingTime">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Tool:</span>
+                            <span class="stat-value" id="sandDrawingTool">Finger</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Color:</span>
+                            <span class="stat-value" id="sandDrawingColor">Gold</span>
+                        </div>
+                    </div>
+                    <div class="sand-drawing-area">
+                        <div class="sand-tools">
+                            <button class="sand-tool-btn active" data-tool="finger">👆 Finger</button>
+                            <button class="sand-tool-btn" data-tool="brush">🖌️ Brush</button>
+                            <button class="sand-tool-btn" data-tool="rake">🪶 Rake</button>
+                            <button class="sand-tool-btn" data-tool="spray">💨 Spray</button>
+                        </div>
+                        <div class="sand-colors">
+                            <button class="sand-color-btn active" data-color="gold" style="background: linear-gradient(45deg, #FFD700, #FFA500);">Gold</button>
+                            <button class="sand-color-btn" data-color="silver" style="background: linear-gradient(45deg, #C0C0C0, #808080);">Silver</button>
+                            <button class="sand-color-btn" data-color="copper" style="background: linear-gradient(45deg, #B87333, #CD7F32);">Copper</button>
+                            <button class="sand-color-btn" data-color="rainbow" style="background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0080ff, #8000ff);">Rainbow</button>
+                        </div>
+                        <canvas id="sandCanvas" width="600" height="400"></canvas>
+                        <div class="sand-controls">
+                            <button class="sand-control-btn" id="clearSandDrawing">Clear Sand</button>
+                            <button class="sand-control-btn" id="saveSandDrawing">Save Art</button>
+                            <button class="sand-control-btn" id="windEffect">Wind Effect</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
